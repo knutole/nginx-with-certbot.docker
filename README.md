@@ -9,8 +9,7 @@ version: "3"
 services:
 
     nginx: 
-        build: 
-            - https://github.com/knutole/nginx-with-certbot.docker.git
+        build: https://github.com/knutole/nginx-with-certbot.docker.git
         environment:
             - NGINX_SERVER_NAME=my.server.com # your web url
             - NGINX_UPSTREAM=my-upstream:8080 # docker-compose service

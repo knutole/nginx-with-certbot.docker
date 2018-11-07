@@ -9,6 +9,9 @@ echo "NGINX_UPSTREAM: $NGINX_UPSTREAM"
 
 create_certs () {
 
+    # ensure dir
+    mkdir -p /home/ssl
+
     # parse nginx certbot config
     parse_nginx_certbot_config
     
