@@ -63,18 +63,17 @@ http {
         ssl_prefer_server_ciphers       on;
         ssl_dhparam                     /home/ssl/dhparams.pem;
 
-        # auth0 server
+        # www
         location / {
             proxy_set_header            Host $host;
 
-            # This points to our shiny-auth0 authentication proxy,
+            # point to our upstream,
             proxy_pass                  http://{UPSTREAM};
             proxy_redirect              http://{UPSTREAM}/ $scheme://$host/;
         
             proxy_http_version          1.1;
            
-            # The following lines enable WebSockets proxying, do not remove them
-            # as they are used by Shiny Server to improve user experience
+            # enable ws proxying
             proxy_set_header            Upgrade $http_upgrade;
             proxy_set_header            Connection "upgrade";
 
