@@ -8,15 +8,19 @@
 version: "3"
 services:
 
-  nginx: 
-    build: https://github.com/knutole/nginx-with-certbot.docker.git
-    environment:
-        - NGINX_SERVER_NAME=my.server.com
-        - NGINX_UPSTREAM=my-docker-service
-    volumes:
-      - ./ssl/:/home/ssl/
-    ports:
-      - "80:80"
-      - "443:443"
+    nginx: 
+        build: https://github.com/knutole/nginx-with-certbot.docker.git
+        environment:
+            - NGINX_SERVER_NAME=my.server.com
+            - NGINX_UPSTREAM=my-upstream
+        volumes:
+            - ./ssl/:/home/ssl/
+        ports:
+            - "80:80"
+            - "443:443"
+
+    my-upstream:
+        image: my-sandboxed-server
+
 
 ```
