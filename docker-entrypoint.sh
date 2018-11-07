@@ -6,6 +6,7 @@ NGINX_CERTBOT_CONFIG=/etc/nginx/nginx-certbot.conf
 echo "ENV:"
 echo "NGINX_SERVER_NAME: $NGINX_SERVER_NAME"
 echo "NGINX_UPSTREAM: $NGINX_UPSTREAM"
+echo "CERTBOT_EMAIL: $CERTBOT_EMAIL"
 
 create_certs () {
 
@@ -21,15 +22,15 @@ create_certs () {
     echo "Creating certificates..."
 
     # ensure certificate
-    certbot certonly -a webroot --webroot-path=/var/www/html -d "$CERTBOT_DOMAIN" \
+    certbot certonly -a webroot --webroot-path=/var/www/html -d "$NGINX_SERVER_NAME" \
         --agree-tos \
         --email "$CERTBOT_EMAIL" \
         --hsts \
         --non-interactive
 
     # move certificates
-    cp /etc/letsencrypt/live/$CERTBOT_DOMAIN/fullchain.pem /home/ssl/fullchain.pem
-    cp /etc/letsencrypt/live/$CERTBOT_DOMAIN/privkey.pem /home/ssl/privkey.pem
+    cp /etc/letsencrypt/live/$NGINX_SERVER_NAME/fullchain.pem /home/ssl/fullchain.pem
+    cp /etc/letsencrypt/live/$NGINX_SERVER_NAME/privkey.pem /home/ssl/privkey.pem
 
     # stop
     service nginx stop
