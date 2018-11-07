@@ -9,18 +9,19 @@ version: "3"
 services:
 
     nginx: 
-        build: https://github.com/knutole/nginx-with-certbot.docker.git
+        build: 
+            - https://github.com/knutole/nginx-with-certbot.docker.git
         environment:
-            - NGINX_SERVER_NAME=my.server.com
-            - NGINX_UPSTREAM=my-upstream:8080
+            - NGINX_SERVER_NAME=my.server.com # your web url
+            - NGINX_UPSTREAM=my-upstream:8080 # docker-compose service
         volumes:
-            - ./ssl/:/home/ssl/
+            - ./ssl/:/home/ssl/               # folder to save ssl certificates across restarts
         ports:
             - "80:80"
             - "443:443"
 
     my-upstream:
-        image: my-sandboxed-server
+        image: my-upstream-service-image
 
 
 ```
